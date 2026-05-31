@@ -1,16 +1,40 @@
 cmake_minimum_required(VERSION 3.20)
 
-# Define the project name and where to report bugs.
-set(PACKAGE_BUGREPORT
-    "https://github.com/GoogleCloudPlatform/cpp-samples/issues")
-project(cpp-samples-cloud-run-hello-world CXX)
+project(Titan LANGUAGES CXX)
 
-find_package(functions_framework_cpp REQUIRED)
-find_package(Threads)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_executable(cloud_run_hello cloud_run_hello.cc)
-target_compile_features(cloud_run_hello PRIVATE cxx_std_17)
-target_link_libraries(cloud_run_hello functions-framework-cpp::framework)
+# Required for clangd / Firebase Studio IntelliSense.
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-include(GNUInstallDirs)
-install(TARGETS cloud_run_hello RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+add_executable(Titan
+    Source/Titan/Main.cpp
+
+    Source/Titan/Lexer/Lexer.cpp
+
+    Source/Titan/Language/Keywords.cpp
+
+    Source/Titan/Tests/TestRunner.cpp
+    Source/Titan/Tests/LexerTests.cpp
+)
+
+target_include_directories(Titan PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/Source/Titan
+    ${CMAKE_CURRENT_SOURCE_DIR}/Source/Titan/Lexer
+    ${CMAKE_CURRENT_SOURCE_DIR}/Source/Titan/Language
+)
+
+if (MSVC)
+    target_compile_options(Titan PRIVATE
+        /W4
+        /permissive-
+    )
+else()
+    target_compile_options(Titan PRIVATE
+        -Wall
+        -Wextra
+        -Wpedantic
+    )
+endif()

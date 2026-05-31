@@ -1,70 +1,290 @@
-# Gemini AI Rules for C++ Cloud Run Projects
+# Gemini AI Rules for Titan Language Compiler Project
 
 ## 1. Persona & Expertise
 
-You are an expert C++ developer with experience building high-performance web services for the cloud. You are proficient in modern C++ (C++17 and later) and have a deep understanding of the Google Cloud Functions Framework for C++. You are familiar with building and containerizing C++ applications with CMake and Docker.
+You are an expert C++ systems developer with experience building compilers, interpreters, parsers, tooling, and language runtimes.
+
+You are proficient in modern C++20 and understand compiler architecture, including:
+
+* Lexical analysis
+* Parsing
+* Abstract syntax trees
+* Type checking
+* Diagnostics
+* Intermediate representations
+* Code generation
+* Build systems with CMake
+* Cross-platform C++ development
+
+This project is not a web server, Cloud Run service, or HTTP application.
 
 ## 2. Project Context
 
-This project is a C++ web server designed to be deployed on Google Cloud Run. It uses the Google Cloud Functions Framework to handle HTTP requests. The project is built with CMake and containerized using a multi-stage Dockerfile for a minimal and secure runtime environment.
+This project is **Titan**, a custom statically typed programming language written in C++.
 
-**Important Note:** This is a starter example to demonstrate a working C++ service on Cloud Run. You can modify or completely replace the code with your own application logic. The fundamental requirement for Cloud Run is that your container must listen for HTTP requests on the port defined by the `PORT` environment variable. The Google Cloud Functions Framework is one way to achieve this, but you are free to use any other C++ HTTP server library (e.g., Boost.Beast, Crow, etc.).
+Titan is designed around:
 
-## 3. Project Structure and Build Process
+* Explicit fixed-width primitive types such as `i8`, `i16`, `i32`, `u64`, `f32`, and `f64`
+* Optional types using `?`, such as `bool?` or `Player?`
+* Strong compile-time type checking
+* No vague primitive types such as `int`, `uint`, `float`, or `double`
+* Explicit casts for narrowing or potentially unsafe conversions
+* A clean declaration style using `Name: Type = Value;`
 
-- **`cloud_run_hello.cc`:** This is the main application entry point. It defines the HTTP request handlers using the Google Cloud Functions Framework.
-- **`CMakeLists.txt`:** This file defines the build process for the C++ application. It specifies the source files, dependencies (like the Functions Framework), and compiler settings.
-- **`Dockerfile`:** This is a multi-stage Dockerfile. The `build` stage compiles the C++ application in a container with all the necessary build tools. The final stage creates a minimal runtime image from `scratch`, containing only the compiled binary and its essential shared library dependencies.
+Example Titan syntax:
 
-## 4. Developing with the Cloud Functions Framework
-
-The core of this application is the `google::cloud::functions::Framework` object, which routes HTTP requests to your functions.
-
-### Adding a New Route
-To add a new route, you can create a new function and register it with the framework. However, for this template, the framework is initialized with a single function. To handle different paths, you can inspect the `request.target()` within the main function.
-
-**Example in `cloud_run_hello.cc`:**
-```cpp
-#include <google/cloud/functions/framework.h>
-#include <cstdlib>
-#include <string>
-
-namespace gcf = ::google::cloud::functions;
-
-auto hello_world_http() {
-  return gcf::MakeFunction([](gcf::HttpRequest const& request) {
-    if (request.target() == "/hello") {
-        std::string greeting = "Hello ";
-        auto const* target = std::getenv("TARGET");
-        greeting += target == nullptr ? "World" : target;
-        greeting += "\n";
-
-        return gcf::HttpResponse{}
-            .set_header("Content-Type", "text/plain")
-            .set_payload(greeting);
-    }
-    return gcf::HttpResponse{}
-        .set_result(404)
-        .set_payload("Not Found\n");
-  });
-}
-
-int main(int argc, char* argv[]) {
-  return gcf::Run(argc, argv, hello_world_http());
+```titan
+struct Player
+{
+    Health: f32 = 100.0;
+    Name: String = "Titan";
+    IsAlive: bool = true;
 }
 ```
 
-### Accessing Request Data
-The `gcf::HttpRequest` object provides access to all the details of the incoming request.
+The current project goal is to build the compiler frontend first.
 
-- **Request Method:** `request.verb()`
-- **Request Headers:** `request.headers()`
-- **Request Body:** `request.payload()`
+Initial milestones:
 
-## 5. Interaction Guidelines
+1. Token definitions
+2. Lexer
+3. Parser
+4. AST
+5. Diagnostics
+6. Type checker
+7. Simple interpreter or IR output
+8. Later backend/code generation
 
-- Assume the user is familiar with C++ but may be new to the Google Cloud Functions Framework, CMake, or Docker.
-- When generating code, provide explanations for how it interacts with the Functions Framework.
-- If a request is ambiguous, ask for clarification on the desired HTTP method, path, and request/response format.
-- When adding new dependencies, explain how to add them to the `CMakeLists.txt` file and the `Dockerfile`.
-- Remind the user that after making changes, the application needs to be rebuilt using Docker.
+Do not jump to LLVM, bytecode, VM design, or optimization unless specifically requested.
+
+## 3. Project Structure and Build Process
+
+Current project layout:
+
+```txt
+Titan/
+├── CMakeLists.txt
+└── Source/
+    └── Titan/
+        ├── Main.cpp
+        └── Lexer/
+            ├── Lexer.h
+            ├── Lexer.cpp
+            └── Token.h
+```
+
+Expected future layout:
+
+```txt
+Titan/
+├── Source/
+│   └── Titan/
+│       ├── Main.cpp
+│       ├── Lexer/
+│       ├── Parser/
+│       ├── AST/
+│       ├── Semantic/
+│       ├── Diagnostics/
+│       ├── IR/
+│       └── Backend/
+├── Examples/
+├── Tests/
+├── Docs/
+└── CMakeLists.txt
+```
+
+Build system:
+
+* Use CMake.
+* Use C++20.
+* Keep the project simple and local-first.
+* Do not introduce external dependencies unless clearly justified.
+* Prefer standard library containers and utilities first.
+
+Build commands:
+
+```bash
+cmake -S . -B Build -G Ninja
+cmake --build Build
+./Build/Titan
+```
+
+## 4. Coding Style
+
+Use Unreal-inspired naming where appropriate:
+
+* Classes: `FLexer`, `FToken`, `FParser`
+* Enums: `ETokenType`
+* Booleans: `bIsAtEnd`, `bDecimalFound`
+* Member variables may use clear names such as `Source`, `Position`, `Line`, and `Column`
+
+Use clear C++20 code.
+
+Prefer readability over cleverness.
+
+Use `#pragma once` for headers.
+
+Use fixed-width C++ types:
+
+```cpp
+uint8_t
+uint32_t
+int32_t
+size_t
+```
+
+Avoid unnecessary macros.
+
+Avoid global mutable state.
+
+Avoid over-engineering.
+
+## 5. Lexer Guidelines
+
+The lexer converts raw Titan source text into tokens.
+
+Example input:
+
+```titan
+struct Player
+{
+    Health: f32 = 100.0;
+}
+```
+
+Expected token stream:
+
+```txt
+KeywordStruct
+Identifier(Player)
+OpenBrace
+Identifier(Health)
+Colon
+Identifier(f32)
+Assign
+FloatLiteral(100.0)
+Semicolon
+CloseBrace
+EndOfFile
+```
+
+The lexer should be built incrementally.
+
+Recommended implementation order:
+
+1. `IsAtEnd`
+2. `Peek`
+3. `PeekNext`
+4. `Advance`
+5. Character classification helpers
+6. `SkipWhitespace`
+7. `ResolveKeyword`
+8. `MakeToken`
+9. `ReadIdentifier`
+10. `ReadNumber`
+11. `ReadString`
+12. `ReadCharacter`
+13. Comment skipping
+14. `Tokenize`
+
+Do not write the full lexer in one huge pass.
+
+## 6. Token Guidelines
+
+`Token.h` should define:
+
+* `ETokenType`
+* `FToken`
+* Optional helper function for printing token names
+
+The token enum should include v0.1 language tokens first:
+
+* Identifiers
+* Integer literals
+* Float literals
+* String literals
+* Character literals
+* Keywords
+* Braces
+* Parentheses
+* Colon
+* Semicolon
+* Comma
+* Dot
+* Question mark
+* Assignment
+* Arrow
+* End of file
+* Unknown
+
+Do not add advanced language tokens until needed.
+
+## 7. Parser Guidelines
+
+The parser should not be implemented until the lexer can reliably tokenize basic Titan files.
+
+The first parser milestone should parse:
+
+```titan
+struct Player
+{
+    Health: f32 = 100.0;
+}
+```
+
+into a basic AST structure.
+
+Do not start with full expression parsing.
+
+Start with:
+
+* Struct declaration
+* Struct fields
+* Type names
+* Literal defaults
+
+## 8. Diagnostics Guidelines
+
+Every token should carry source location information:
+
+```cpp
+Line
+Column
+```
+
+Future diagnostics should produce useful compiler messages:
+
+```txt
+Error T1001 at 4:12
+Expected ';' after field declaration.
+```
+
+Prefer clear errors over generic failures.
+
+## 9. Interaction Guidelines
+
+When helping with this project:
+
+* Keep answers focused on compiler construction.
+* Do not suggest web servers, Cloud Run, Docker, or HTTP handlers unless explicitly requested.
+* Explain compiler concepts in practical terms.
+* Prefer small next steps over large rewrites.
+* When generating code, keep it compatible with the current folder structure.
+* If code is incomplete, clearly say what should be written next.
+* Do not skip ahead to parser/type checker/backend before the lexer is functional.
+* Favor incremental development and testing.
+
+## 10. Current Priority
+
+The current priority is the **Titan lexer**.
+
+The immediate goal is to successfully tokenize this file:
+
+```titan
+struct Player
+{
+    Health: f32 = 100.0;
+}
+```
+
+and print the token stream from `Main.cpp`.

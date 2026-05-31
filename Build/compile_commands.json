@@ -1,0 +1,32 @@
+[
+{
+  "directory": "/home/user/titan/Build",
+  "command": "/usr/bin/c++ -I/home/user/titan/Source/Titan -I/home/user/titan/Source/Titan/Lexer -I/home/user/titan/Source/Titan/Language -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Titan.dir/Source/Titan/Main.cpp.o -c /home/user/titan/Source/Titan/Main.cpp",
+  "file": "/home/user/titan/Source/Titan/Main.cpp",
+  "output": "CMakeFiles/Titan.dir/Source/Titan/Main.cpp.o"
+},
+{
+  "directory": "/home/user/titan/Build",
+  "command": "/usr/bin/c++ -I/home/user/titan/Source/Titan -I/home/user/titan/Source/Titan/Lexer -I/home/user/titan/Source/Titan/Language -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Titan.dir/Source/Titan/Lexer/Lexer.cpp.o -c /home/user/titan/Source/Titan/Lexer/Lexer.cpp",
+  "file": "/home/user/titan/Source/Titan/Lexer/Lexer.cpp",
+  "output": "CMakeFiles/Titan.dir/Source/Titan/Lexer/Lexer.cpp.o"
+},
+{
+  "directory": "/home/user/titan/Build",
+  "command": "/usr/bin/c++ -I/home/user/titan/Source/Titan -I/home/user/titan/Source/Titan/Lexer -I/home/user/titan/Source/Titan/Language -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Titan.dir/Source/Titan/Language/Keywords.cpp.o -c /home/user/titan/Source/Titan/Language/Keywords.cpp",
+  "file": "/home/user/titan/Source/Titan/Language/Keywords.cpp",
+  "output": "CMakeFiles/Titan.dir/Source/Titan/Language/Keywords.cpp.o"
+},
+{
+  "directory": "/home/user/titan/Build",
+  "command": "/usr/bin/c++ -I/home/user/titan/Source/Titan -I/home/user/titan/Source/Titan/Lexer -I/home/user/titan/Source/Titan/Language -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Titan.dir/Source/Titan/Tests/TestRunner.cpp.o -c /home/user/titan/Source/Titan/Tests/TestRunner.cpp",
+  "file": "/home/user/titan/Source/Titan/Tests/TestRunner.cpp",
+  "output": "CMakeFiles/Titan.dir/Source/Titan/Tests/TestRunner.cpp.o"
+},
+{
+  "directory": "/home/user/titan/Build",
+  "command": "/usr/bin/c++ -I/home/user/titan/Source/Titan -I/home/user/titan/Source/Titan/Lexer -I/home/user/titan/Source/Titan/Language -std=c++20 -Wall -Wextra -Wpedantic -o CMakeFiles/Titan.dir/Source/Titan/Tests/LexerTests.cpp.o -c /home/user/titan/Source/Titan/Tests/LexerTests.cpp",
+  "file": "/home/user/titan/Source/Titan/Tests/LexerTests.cpp",
+  "output": "CMakeFiles/Titan.dir/Source/Titan/Tests/LexerTests.cpp.o"
+}
+]
