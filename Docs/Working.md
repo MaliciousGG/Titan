@@ -7,7 +7,7 @@ Titan uses explicit fixed-width primitive types. Implicit sizing such as `int`, 
 ### Signed Integers
 
 | Canonical | Aliases          | Size   | Range                                                   |
-| --------- | ---------------- | ------ | ------------------------------------------------------- |
+|-----------|------------------|--------|---------------------------------------------------------|
 | `i8`      | `Int8`, `int8`   | 8-bit  | -128 to 127                                             |
 | `i16`     | `Int16`, `int16` | 16-bit | -32,768 to 32,767                                       |
 | `i32`     | `Int32`, `int32` | 32-bit | -2,147,483,648 to 2,147,483,647                         |
@@ -16,7 +16,7 @@ Titan uses explicit fixed-width primitive types. Implicit sizing such as `int`, 
 ### Unsigned Integers
 
 | Canonical | Aliases            | Size   | Range                           |
-| --------- | ------------------ | ------ | ------------------------------- |
+|-----------|--------------------|--------|---------------------------------|
 | `u8`      | `UInt8`, `uint8`   | 8-bit  | 0 to 255                        |
 | `u16`     | `UInt16`, `uint16` | 16-bit | 0 to 65,535                     |
 | `u32`     | `UInt32`, `uint32` | 32-bit | 0 to 4,294,967,295              |
@@ -25,14 +25,14 @@ Titan uses explicit fixed-width primitive types. Implicit sizing such as `int`, 
 ### Floating Point
 
 | Canonical | Aliases              | Size   | Standard |
-| --------- | -------------------- | ------ | -------- |
+|-----------|----------------------|--------|----------|
 | `f32`     | `Float32`, `float32` | 32-bit | IEEE-754 |
 | `f64`     | `Float64`, `float64` | 64-bit | IEEE-754 |
 
 ### Boolean
 
 | Canonical | Aliases           | Size   |
-| --------- | ----------------- | ------ |
+|-----------|-------------------|--------|
 | `bool`    | `Bool`, `Boolean` | 1 byte |
 
 Valid values:
@@ -45,7 +45,7 @@ false
 ### Character
 
 | Canonical | Aliases |
-| --------- | ------- |
+|-----------|---------|
 | `char`    | `Char`  |
 
 Represents a single Unicode code point.
@@ -59,7 +59,7 @@ Letter: char = 'A';
 ### String
 
 | Canonical | Aliases  |
-| --------- | -------- |
+|-----------|----------|
 | `String`  | `string` |
 
 Represents a UTF-8 encoded string.
@@ -132,13 +132,13 @@ These types should be used for:
 ### Signed Architecture Integer
 
 | Canonical | Aliases              | Size               |
-| --------- | -------------------- | ------------------ |
+|-----------|----------------------|--------------------|
 | `isize`   | `IntSize`, `intsize` | Platform Dependent |
 
 Size by platform:
 
 | Platform | Size   |
-| -------- | ------ |
+|----------|--------|
 | 32-bit   | 32-bit |
 | 64-bit   | 64-bit |
 
@@ -152,13 +152,13 @@ Offset: isize = 128;
 ### Unsigned Architecture Integer
 
 | Canonical | Aliases                | Size               |
-| --------- | ---------------------- | ------------------ |
+|-----------|------------------------|--------------------|
 | `usize`   | `UIntSize`, `uintsize` | Platform Dependent |
 
 Size by platform:
 
 | Platform | Size   |
-| -------- | ------ |
+|----------|--------|
 | 32-bit   | 32-bit |
 | 64-bit   | 64-bit |
 
