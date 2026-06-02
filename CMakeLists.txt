@@ -23,7 +23,10 @@ add_executable(Titan
 target_include_directories(Titan PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/Source/Titan
     ${CMAKE_CURRENT_SOURCE_DIR}/Source/Titan/Lexer
-    ${CMAKE_CURRENT_SOURCE_DIR}/Source/Titan/Language
+    ${CMAKE_CURRENT_SOURCE_DIR}/Source/Titan/Language 
+        ${CMAKE_CURRENT_SOURCE_DIR}/Source/Titan/Parser
+        ${CMAKE_CURRENT_SOURCE_DIR}/Source/Titan/AST
+        
 )
 
 if (MSVC)

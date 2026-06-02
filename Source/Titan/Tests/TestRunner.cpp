@@ -11,20 +11,20 @@ int FTestRunner::RunSummary() const
 {
     int FailedCount = 0;
 
-    for (const FTestResult& Result : Results)
+    for (const auto& [Name, bPassed, Message] : Results)
     {
-        if (Result.bPassed)
+        if (bPassed)
         {
-            std::cout << "[PASS] " << Result.Name << '\n';
+            std::cout << "[PASS] " << Name << '\n';
         }
         else
         {
             ++FailedCount;
-            std::cout << "[FAIL] " << Result.Name;
+            std::cout << "[FAIL] " << Name;
 
-            if (!Result.Message.empty())
+            if (!Message.empty())
             {
-                std::cout << " - " << Result.Message;
+                std::cout << " - " << Message;
             }
 
             std::cout << '\n';

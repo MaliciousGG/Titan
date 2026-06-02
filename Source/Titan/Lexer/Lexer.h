@@ -9,35 +9,35 @@
 class FLexer
 {
 public:
-    explicit FLexer(const std::string& InSource);
+    explicit FLexer(std::string  InSource);
 
     std::vector<FToken> Tokenize();
 
 private:
-    char Peek() const;
-    char PeekNext() const;
+    [[nodiscard]] char Peek() const;
+    [[nodiscard]] char PeekNext() const;
     char Advance();
 
-    bool IsAtEnd() const;
+    [[nodiscard]] bool IsAtEnd() const;
 
     void SkipWhitespace();
     void SkipLineComment();
     void SkipBlockComment();
 
-    FToken MakeToken(ETokenType Type, const std::string& Text) const;
-    FToken MakeUnknownToken(const std::string& Text) const;
+    [[nodiscard]] FToken MakeToken(ETokenType Type, const std::string& Text) const;
+    [[nodiscard]] FToken MakeUnknownToken(const std::string& Text) const;
 
     FToken ReadIdentifier();
     FToken ReadNumber();
     FToken ReadString();
     FToken ReadCharacter();
 
-    ETokenType ResolveKeyword(const std::string& Text) const;
+    [[nodiscard]] ETokenType ResolveKeyword(const std::string& Text) const;
 
-    bool IsIdentifierStart(char Character) const;
-    bool IsIdentifierPart(char Character) const;
-    bool IsDigit(char Character) const;
-    bool IsWhitespace(char Character) const;
+    [[nodiscard]] bool IsIdentifierStart(char Character) const;
+    [[nodiscard]] bool IsIdentifierPart(char Character) const;
+    [[nodiscard]] bool IsDigit(char Character) const;
+    [[nodiscard]] bool IsWhitespace(char Character) const;
 
 private:
     std::string Source;

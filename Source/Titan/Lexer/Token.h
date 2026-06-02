@@ -9,7 +9,7 @@ enum class ETokenType : uint8_t
     EndOfFile,
 
     Identifier,
-
+    
     IntegerLiteral,
     FloatLiteral,
     StringLiteral,

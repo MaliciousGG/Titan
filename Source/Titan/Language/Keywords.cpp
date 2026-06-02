@@ -5,6 +5,7 @@ namespace Titan::Language
     const std::unordered_map<std::string, ETokenType> Keywords =
     {
         { "struct", ETokenType::KeywordStruct },
+        {"Struct", ETokenType::KeywordStruct },
         { "fn", ETokenType::KeywordFn },
         { "return", ETokenType::KeywordReturn },
 
@@ -19,9 +20,7 @@ namespace Titan::Language
 
     ETokenType ResolveKeyword(const std::string& Text)
     {
-        const auto Iterator = Keywords.find(Text);
-
-        if (Iterator != Keywords.end())
+        if (const auto Iterator = Keywords.find(Text); Iterator != Keywords.end())
         {
             return Iterator->second;
         }

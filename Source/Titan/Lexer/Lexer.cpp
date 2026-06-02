@@ -1,10 +1,12 @@
 #include "Lexer.h"
+
+#include <utility>
 #include "Token.h"
 #include "Keywords.h"
 
 
-FLexer::FLexer(const std::string& InSource)
-    : Source(InSource)
+FLexer::FLexer(std::string  InSource)
+    : Source(std::move(InSource))
 {}
 
 std::vector<FToken> FLexer::Tokenize()
