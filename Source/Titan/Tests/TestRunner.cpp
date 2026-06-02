@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-void FTestRunner::AddResult(const std::string& Name, bool bPassed, const std::string& Message)
+void FTestRunner::AddResult(const std::string& Name, const bool bPassed, const std::string& Message)
 {
     Results.push_back({ Name, bPassed, Message });
 }

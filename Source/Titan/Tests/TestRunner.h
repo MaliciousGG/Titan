@@ -14,10 +14,11 @@ class FTestRunner
 {
 public:
     void AddResult(const std::string& Name, bool bPassed, const std::string& Message = "");
-    int RunSummary() const;
+    [[nodiscard]] int RunSummary() const;
 
 private:
     std::vector<FTestResult> Results;
 };
 
 void RunLexerTests(FTestRunner& Runner);
+void RunParserTests(FTestRunner& Runner);
