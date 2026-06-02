@@ -21,7 +21,6 @@ FASTStructNode FParser::ParseStruct()
     
     while (!Check(ETokenType::CloseBrace) && !Check(ETokenType::EndOfFile))
     {
-        // Fields Example: Health: f32 = 0;
         FASTFieldNode FieldNode;
         
         const FToken& FieldNameToken = Peek();

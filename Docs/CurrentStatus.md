@@ -186,6 +186,8 @@ Struct
 
 ✓ Basic Struct
 
+✓ Multiple Field Struct
+
 ---
 
 # Current AST

@@ -13,11 +13,11 @@ add_executable(Titan
     Source/Titan/Main.cpp
 
     Source/Titan/Lexer/Lexer.cpp
-    Source/Titan/Parser/Parser.cpp
     Source/Titan/Language/Keywords.cpp
+    Source/Titan/Parser/Parser.cpp
 
     Source/Titan/Tests/TestRunner.cpp
-    Source/Titan/Tests/LexerTests.cpp 
+    Source/Titan/Tests/LexerTests.cpp
     Source/Titan/Tests/ParserTests.cpp
 )
 
